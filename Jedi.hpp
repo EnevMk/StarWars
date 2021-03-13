@@ -23,6 +23,7 @@ public:
     Jedi(const Jedi &obj);
     Jedi& operator=(const Jedi &obj);
     ~Jedi();
+    //std::ostream& operator<<(std::ostream& out);
     void print() const;
     char* getName() const;
     JediRank getRank() const;

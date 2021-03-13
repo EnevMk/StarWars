@@ -12,19 +12,19 @@ char* Planet::getRepublic() const {
     return republic;
 }
 
-void Planet::setName(char *name_) {
+void Planet::setName(const char *name_) {
     delete[] name;
     name = new char[strlen(name_) + 1];
     strcpy(name, name_);
 }
 
-void Planet::setPlanetSystem(char *planetSystem_) {
+void Planet::setPlanetSystem(const char *planetSystem_) {
     delete[] planetSystem;
     planetSystem = new char[strlen(planetSystem_) + 1];
     strcpy(planetSystem, planetSystem_);
 }
 
-void Planet::setRepublic(char *republic_) {
+void Planet::setRepublic(const char *republic_) {
     delete[] republic;
     republic = new char[strlen(republic) + 1];
     strcpy(republic, republic_);
@@ -86,12 +86,17 @@ Planet& Planet::operator=(const Planet &obj) {
 
 Planet::~Planet() {
     delete[] name;
+    name = nullptr;
+
     delete[] planetSystem;
+    planetSystem = nullptr;
+    
     delete[] republic;
+    republic = nullptr;
 }
 
 void Planet::print() const {
-    std::cout << "Planet Information: \n";
+    std::cout << "\nPlanet Information: \n";
     std::cout << "Name: " << name << '\n';
     std::cout << "Planet System: " << planetSystem << '\n';
     std::cout << "Republic: " << republic << '\n';

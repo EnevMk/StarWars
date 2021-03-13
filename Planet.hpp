@@ -16,7 +16,7 @@ public:
     char* getName() const;
     char* getPlanetSystem() const;
     char* getRepublic() const;
-    void setName(char* name_);
-    void setPlanetSystem(char* planetSystem_);
-    void setRepublic(char* republic_);
+    void setName(const char* name_);
+    void setPlanetSystem(const char* planetSystem_);
+    void setRepublic(const char* republic_);
 };

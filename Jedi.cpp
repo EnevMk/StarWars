@@ -19,6 +19,12 @@ Jedi::Jedi() {
     char buffSpicies[] = "Human";
     spicies = new char[spiciesLen];
     strcpy(spicies, buffSpicies);
+
+    const int militaryLen = 7;
+    char buffMilitary[] = "Loshav";
+    militaryRank = new char[militaryLen];
+    strcpy(militaryRank, buffMilitary);
+
 }
 
 Jedi::Jedi(const char *name_, const JediRank rank_, const double midiChlorian_, const Planet &pl_, const char *spicies_, const char* militaryRank_) {
@@ -40,6 +46,7 @@ Jedi::Jedi(const char *name_, const JediRank rank_, const double midiChlorian_, 
 }
 
 Jedi::Jedi(const Jedi &obj) {
+
     name = new char[strlen(obj.name) + 1];
     strcpy(name, obj.name);
 
@@ -57,6 +64,7 @@ Jedi::Jedi(const Jedi &obj) {
 }
 
 Jedi& Jedi::operator=(const Jedi &obj) {
+
     if (this != &obj) {
         delete[] name;
         name = new char[strlen(obj.name) + 1];
@@ -77,12 +85,19 @@ Jedi& Jedi::operator=(const Jedi &obj) {
         strcpy(militaryRank, obj.militaryRank);
     }
     return *this;
+
 }
 
 Jedi::~Jedi() {
+    
     delete[] name;
+    name = nullptr;
+    
     delete[] spicies;
+    spicies = nullptr;
+
     delete[] militaryRank;
+    militaryRank = nullptr;
 }
 
 const char* Jedi::enumToString(const JediRank &r) const {
@@ -103,8 +118,8 @@ const char* Jedi::enumToString(const JediRank &r) const {
 }
 
 void Jedi::print() const {
-    std::cout << "Information about object: " << '\n';
-    std::cout << "Name: " << name
+    std::cout << "\nInformation about object: " << '\n';
+    std::cout << "Name: " << name << '\n'
     << "Rank: " << enumToString(rank) << '\n'
     << "Midi-Chlorian count: " << midiChlorian << '\n';
 

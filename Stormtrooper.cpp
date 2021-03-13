@@ -73,7 +73,10 @@ Stormtrooper& Stormtrooper::operator=(const Stormtrooper &obj) {
 
 Stormtrooper::~Stormtrooper() {
     delete[] id;
+    id = nullptr;
+
     delete[] type;
+    type = nullptr;
 
 }
 
