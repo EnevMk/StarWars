@@ -5,7 +5,6 @@ private:
     char *name;
     char *planetSystem;
     char *republic;
-    void msg();
     
 public:
     Planet();

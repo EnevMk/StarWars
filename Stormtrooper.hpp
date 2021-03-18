@@ -18,18 +18,18 @@ private:
     Planet planet;
     friend std::ostream& operator<<(std::ostream &out, const Stormtrooper &obj) {
 
-    out << "Id: " << obj.getId() 
-    << "\nRank: " << obj.enumToString(obj.getRank())
-    << "\nType: " << obj.getType();
+        out << "Id: " << obj.getId() 
+        << "\nRank: " << obj.enumToString(obj.getRank())
+        << "\nType: " << obj.getType();
 
-    Planet pl = obj.getPlanet();
+        Planet pl = obj.getPlanet();
 
-    out << "\nPlanet Name:" << pl.getName()
-    <<"\nPlanet System: " << pl.getPlanetSystem()
-    <<"\nRepublic: " << pl.getRepublic() << '\n';
-    
-    return out;
-}
+        out << "\nPlanet Name:" << pl.getName()
+        <<"\nPlanet System: " << pl.getPlanetSystem()
+        <<"\nRepublic: " << pl.getRepublic() << '\n';
+        
+        return out;
+    }
 public:
     Stormtrooper();
     Stormtrooper(const char* id_, const Rank rank_, const char* type_, const Planet &planet_);

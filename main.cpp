@@ -6,12 +6,11 @@
 int main() {
     Jedi *anakin = new Jedi;
     
-    //anakin->setRank(JediRank::Master);
+    anakin->setRank(JediRank::Master);
     
     print(*anakin);
     delete anakin;
     
-    std::cout << "Razdelna kompilaciq\n" 
-    << "C++ gives me nightmares.\n";
+    std::cout << "C++ gives me nightmares.\n";
     return 0;
 }
