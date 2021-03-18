@@ -2,6 +2,8 @@
 #include <cstring>
 #include "Stormtrooper.hpp"
 
+//template void print<Stormtrooper>(Stormtrooper);
+
 char* Stormtrooper::getId() const {
     return id;
 }
@@ -100,12 +102,12 @@ const char* Stormtrooper::enumToString(Rank r) const {
     }
 }
 
-void Stormtrooper::print() const {
+/* void Stormtrooper::print() const {
     std::cout << "Stormtrooper info: \n";
     std::cout << "ID: " << id << '\n';
     std::cout << "Rank: " << enumToString(rank) << '\n';
     std::cout << "Type: " << type;
-}
+} */
 
 void Stormtrooper::setId(char *id_) {
     delete[] id;
@@ -126,4 +128,20 @@ void Stormtrooper::setType(char *type_) {
 void Stormtrooper::setPlanet(const Planet &obj) {
     planet = obj;
 }
+
+
+/* std::ostream& operator<<(std::ostream &out, const Stormtrooper &obj) {
+
+    out << "Id: " << obj.getId() 
+    << "\nRank: " << obj.enumToString(obj.getRank())
+    << "\nType: " << obj.getType();
+
+    Planet pl = obj.getPlanet();
+
+    out << "\nPlanet Name:" << pl.getName()
+    <<"\nPlanet System: " << pl.getPlanetSystem()
+    <<"\nRepublic: " << pl.getRepublic() << '\n';
+    
+    return out;
+} */
 

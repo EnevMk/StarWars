@@ -2,6 +2,8 @@
 #include <iostream>
 #include "Jedi.hpp"
 
+//template void print<Jedi>(Jedi);
+
 Jedi::Jedi() {
     const int nameLen = 17;
     char buffName[] = "Anakin Skywalker";
@@ -115,18 +117,6 @@ const char* Jedi::enumToString(const JediRank &r) const {
     default:
         return "UNKNOWN";
     }
-}
-
-void Jedi::print() const {
-    std::cout << "\nInformation about object: " << '\n';
-    std::cout << "Name: " << name << '\n'
-    << "Rank: " << enumToString(rank) << '\n'
-    << "Midi-Chlorian count: " << midiChlorian << '\n';
-
-    planet.print();
-
-    std::cout << "Spicies: " << spicies << '\n'
-    << "Military Rank: " << militaryRank << '\n';   
 }
 
 char* Jedi::getName() const {

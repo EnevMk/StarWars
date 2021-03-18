@@ -2,6 +2,8 @@
 #include <cstring>
 #include "Planet.hpp"
 
+//template void print<Planet>(Planet);
+
 char* Planet::getName() const {
     return name;
 }
@@ -93,11 +95,4 @@ Planet::~Planet() {
     
     delete[] republic;
     republic = nullptr;
-}
-
-void Planet::print() const {
-    std::cout << "\nPlanet Information: \n";
-    std::cout << "Name: " << name << '\n';
-    std::cout << "Planet System: " << planetSystem << '\n';
-    std::cout << "Republic: " << republic << '\n';
 }
