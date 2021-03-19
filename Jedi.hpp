@@ -5,7 +5,9 @@ enum class JediRank {
     Youngling,
     Padawan,
     Knight,
-    Master
+    Master,
+    GrandMaster,
+    Unknown
 };
 
 class Jedi {
@@ -16,23 +18,8 @@ private:
     Planet planet;
     char* spicies;
     char* militaryRank;
-    friend std::ostream& operator<<(std::ostream &out, const Jedi &obj) {
-
-        out << "\nName: " << obj.getName()
-        << "\nRank: " << obj.enumToString(obj.getRank())
-        << "\nMidi-Chlorian: " << obj.getMidiChlorian() << '\n';
-        
-        Planet pl = obj.getPlanet();
-
-        out << "\nPlanet Name:" << pl.getName()
-        <<"\nPlanet System: " << pl.getPlanetSystem()
-        <<"\nRepublic: " << pl.getRepublic() << '\n';
-
-        out << "\nSpicies: " << obj.getSpicies()
-        << "\nMilitary Rank: " << obj.getMilitaryRank() << '\n';
-
-        return out;
-    }
+    friend std::ostream& operator<<(std::ostream &out, const Jedi &obj);
+    
 public:
     Jedi();
     Jedi(const char *name_, const JediRank rank_, const double midiChlorian_, const Planet &pl_, const char *spicies_, const char* militaryRank_);

@@ -5,27 +5,12 @@
 //template void print<Jedi>(Jedi);
 
 Jedi::Jedi() {
-    const int nameLen = 17;
-    char buffName[] = "Anakin Skywalker";
 
-    name = new char[nameLen];
-    strcpy(name, buffName);
-
-    rank = JediRank::Knight;
-
-    midiChlorian = 20000;
-
-    planet = {"Tatooine", "Tatoo System", "Arkanis"};
-
-    const int spiciesLen = 6;
-    char buffSpicies[] = "Human";
-    spicies = new char[spiciesLen];
-    strcpy(spicies, buffSpicies);
-
-    const int militaryLen = 7;
-    char buffMilitary[] = "Loshav";
-    militaryRank = new char[militaryLen];
-    strcpy(militaryRank, buffMilitary);
+    name = nullptr;
+    rank = JediRank::Unknown;
+    midiChlorian = 0;
+    spicies = nullptr;
+    militaryRank = nullptr;
 
 }
 
@@ -100,6 +85,20 @@ Jedi::~Jedi() {
 
     delete[] militaryRank;
     militaryRank = nullptr;
+}
+
+std::ostream& operator<<(std::ostream &out, const Jedi &obj) {
+
+    out << "\nName: " << obj.getName()
+    << "\nRank: " << obj.enumToString(obj.getRank())
+    << "\nMidi-Chlorian: " << obj.getMidiChlorian() << '\n';
+    
+    out << obj.getPlanet();
+
+    out << "\nSpicies: " << obj.getSpicies()
+    << "\nMilitary Rank: " << obj.getMilitaryRank() << '\n';
+
+    return out;
 }
 
 const char* Jedi::enumToString(const JediRank &r) const {
