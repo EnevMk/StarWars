@@ -3,7 +3,7 @@
 #include "Planet.hpp"
 
 //template void print<Planet>(Planet);
-PlanetType toEnum(char *str);
+PlanetType plTypeToEnum(char *str);
 
 Planet::Planet() {
 
@@ -140,20 +140,12 @@ std::istream& operator>>(std::istream &in, Planet &obj) {
     strcpy(obj.republic, buffer);
 
     in.getline(buffer, maxLen, '\n');
-    obj.pType = toEnum(buffer);
+    obj.pType = plTypeToEnum(buffer);
     
     return in;
 }
 
-void toLower(char* str) {
-    for (int i = 0; str[i] != '\0'; ++i) {
-        if (str[i] >= 'A' && str[i] <= 'Z') {
-            str[i] += 'a' - 'A';
-        }
-    }
-}
-
-PlanetType toEnum(char *str) {
+PlanetType plTypeToEnum(char *str) {
     toLower(str);
 
     if (!strcmp(str, "chthonian")) return PlanetType::Chthonian;

@@ -3,30 +3,15 @@
 #include "Stormtrooper.hpp"
 
 //template void print<Stormtrooper>(Stormtrooper);
-
-char* Stormtrooper::getId() const {
-    return id;
-}
-Rank Stormtrooper::getRank() const {
-    return rank;
-}
-char* Stormtrooper::getType() const {
-    return type;
-}
-const Planet& Stormtrooper::getPlanet() const {
-    return planet;
-}
+Rank toEnum (char *str);
 
 Stormtrooper::Stormtrooper() {
-    char buff[] = "000000";
-    id = new char[7];
-    strcpy(id, buff);
+    id = nullptr;
+    rank = Rank::Unknown;
+    type = nullptr;
 
-    rank = Rank::TROOPER;
+    this->setPlanet({"unknown", "unknown", "unknown", PlanetType::Unknown});
 
-    char buffType[] = "Clone Trooper";
-    type = new char[14];
-    strcpy(type, buffType);
 }
 
 Stormtrooper::Stormtrooper(const char* id_, const Rank rank_, const char* type_, const Planet &planet_) {
@@ -82,32 +67,21 @@ Stormtrooper::~Stormtrooper() {
 
 }
 
-const char* Stormtrooper::enumToString(Rank r) const {
-    switch (r)
-    {
-    case Rank::TROOPER:
-        return "TROOPER";
-        break;
-    case Rank::SERGEANT:
-        return "SERGEANT";
-    case Rank::SQUADLEADER:
-        return "SQUADLEADER";
-    case Rank::CHIEF:
-        return "CHIEF";
-    case Rank::CAPTAIN:
-        return "CAPTAIN";
-    default:
-        return "Unknown";
-        break;
-    }
+char* Stormtrooper::getId() const {
+    return id;
 }
 
-/* void Stormtrooper::print() const {
-    std::cout << "Stormtrooper info: \n";
-    std::cout << "ID: " << id << '\n';
-    std::cout << "Rank: " << enumToString(rank) << '\n';
-    std::cout << "Type: " << type;
-} */
+Rank Stormtrooper::getRank() const {
+    return rank;
+}
+
+char* Stormtrooper::getType() const {
+    return type;
+}
+
+const Planet& Stormtrooper::getPlanet() const {
+    return planet;
+}
 
 void Stormtrooper::setId(char *id_) {
     delete[] id;
@@ -129,19 +103,71 @@ void Stormtrooper::setPlanet(const Planet &obj) {
     planet = obj;
 }
 
+std::ostream& operator<<(std::ostream &out, const Stormtrooper &obj) {
 
-/* std::ostream& operator<<(std::ostream &out, const Stormtrooper &obj) {
-
-    out << "Id: " << obj.getId() 
+    out << "Id: " << obj.id 
     << "\nRank: " << obj.enumToString(obj.getRank())
     << "\nType: " << obj.getType();
-
-    Planet pl = obj.getPlanet();
-
-    out << "\nPlanet Name:" << pl.getName()
-    <<"\nPlanet System: " << pl.getPlanetSystem()
-    <<"\nRepublic: " << pl.getRepublic() << '\n';
     
+    out << obj.getPlanet();
+        
     return out;
-} */
+}
 
+std::istream& operator>>(std::istream &in, Stormtrooper &obj) {
+    delete[] obj.id;
+    delete[] obj.type;
+    //TODO
+    const int maxLen = 20;
+    char buff[maxLen];
+
+    in.getline(buff, maxLen, '\n');
+    obj.id = new char[strlen(buff) + 1];
+    strcpy(obj.id, buff);
+
+    in.getline(buff, maxLen, '\n');
+    obj.rank = toEnum(buff);
+
+    in.getline(buff, maxLen, '\n');
+    obj.type = new char[strlen(buff) + 1];
+    strcpy(obj.type, buff);
+
+    in.getline(buff, maxLen, '\n');
+    obj.planet.setName(buff);
+
+    return in;
+}
+
+Rank toEnum (char *str) {
+    toLower(str);
+
+    if(!strcmp(str, "trooper")) return Rank::TROOPER;
+
+    if(!strcmp(str, "sergeant")) return Rank::SERGEANT;
+
+    if(!strcmp(str, "squadleader")) return Rank::SQUADLEADER;
+
+    if(!strcmp(str, "chief")) return Rank::CHIEF;
+
+    if(!strcmp(str, "captain")) return Rank::CAPTAIN;
+
+    return Rank::Unknown;
+}
+
+const char* Stormtrooper::enumToString(Rank r) const {
+    switch (r)
+    {
+    case Rank::TROOPER:
+        return "TROOPER";
+    case Rank::SERGEANT:
+        return "SERGEANT";
+    case Rank::SQUADLEADER:
+        return "SQUADLEADER";
+    case Rank::CHIEF:
+        return "CHIEF";
+    case Rank::CAPTAIN:
+        return "CAPTAIN";
+    default:
+        return "Unknown";
+    }
+}
