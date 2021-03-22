@@ -109,7 +109,7 @@ void Planet::setType(const PlanetType pt) {
 }
 
 std::ostream& operator<<(std::ostream &out, const Planet &obj) {
-    out << "\nPlanet Name:" << obj.getName()
+    out << "\nPlanet Name: " << obj.getName()
     <<"\nPlanet System: " << obj.planetSystem
     <<"\nRepublic: " << obj.republic<< '\n';
     
@@ -119,35 +119,22 @@ std::ostream& operator<<(std::ostream &out, const Planet &obj) {
 }
 
 std::istream& operator>>(std::istream &in, Planet &obj) {
-    /* delete[] obj.name;
-    delete[] obj.planetSystem;
-    delete[] obj.republic; */
 
     const int maxLen = 20;
 
     char buffer[maxLen];
     
     in.getline(buffer, maxLen, '\n');
-    /* obj.name = new char[strlen(buffer) + 1];
-    strcpy(obj.name, buffer); */
     obj.setName(buffer);
 
     in.getline(buffer, maxLen, '\n');
-    /* obj.planetSystem = new char[strlen(buffer) + 1];
-    strcpy(obj.planetSystem, buffer); */
     obj.setPlanetSystem(buffer);
 
     in.getline(buffer, maxLen, '\n');
-    /* obj.republic = new char[strlen(buffer) + 1];
-    strcpy(obj.republic, buffer); */
     obj.setRepublic(buffer);
 
-    /* in.clear();
-    in.ignore(10000, '\n');
-
     in.getline(buffer, maxLen, '\n');
-    obj.pType = plTypeToEnum(buffer);
-    obj.pType = plTypeToEnum(buffer); */
+    obj.setType(plTypeToEnum(buffer));
     
     return in;
 }

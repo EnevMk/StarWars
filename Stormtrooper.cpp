@@ -115,22 +115,18 @@ std::ostream& operator<<(std::ostream &out, const Stormtrooper &obj) {
 }
 
 std::istream& operator>>(std::istream &in, Stormtrooper &obj) {
-    delete[] obj.id;
-    delete[] obj.type;
-    //TODO
+
     const int maxLen = 20;
     char buff[maxLen];
 
     in.getline(buff, maxLen, '\n');
-    obj.id = new char[strlen(buff) + 1];
-    strcpy(obj.id, buff);
+    obj.setId(buff);
 
     in.getline(buff, maxLen, '\n');
     obj.rank = toEnum(buff);
 
     in.getline(buff, maxLen, '\n');
-    obj.type = new char[strlen(buff) + 1];
-    strcpy(obj.type, buff);
+    obj.setType(buff);
 
     in.getline(buff, maxLen, '\n');
     obj.planet.setName(buff);

@@ -8,10 +8,10 @@ int main() {
     
     std::cout << "C++ gives me nightmares.\n";
 
-    Planet earth;
-    std::cin >> earth;
+    Stormtrooper st;
+    std::cin >> st;
 
     std::cout << "\ntesting print foo\n";
-    print(earth);
+    print(st);
     return 0;
 }
