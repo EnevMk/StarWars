@@ -18,7 +18,7 @@ private:
     Planet planet;
     char* spicies;
     char* militaryRank;
-    friend std::ostream& operator<<(std::ostream &out, const Jedi &obj);
+    
     
 public:
     Jedi();
@@ -41,4 +41,7 @@ public:
     void setSpicies(char *spicies_);
     void setMilitaryRank( char *militaryRank_);
     const char* enumToString(const JediRank &r) const;
+
+    friend std::ostream& operator<<(std::ostream &out, const Jedi &obj);
+    friend std::istream& operator>>(std::istream &in, Jedi &obj);
 };

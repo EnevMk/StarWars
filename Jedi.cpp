@@ -3,6 +3,7 @@
 #include "Jedi.hpp"
 
 //template void print<Jedi>(Jedi);
+JediRank jediRankToEnum(char *str);
 
 Jedi::Jedi() {
 
@@ -11,6 +12,8 @@ Jedi::Jedi() {
     midiChlorian = 0;
     spicies = nullptr;
     militaryRank = nullptr;
+
+    this->setPlanet({"unknown", "unknown", "unknown", PlanetType::Unknown});
 
 }
 
@@ -143,7 +146,9 @@ char* Jedi::getMilitaryRank() const {
 }
 
 void Jedi::setName(char* name_) {
-    delete[] name;
+    if (name != nullptr) {
+        delete[] name;
+    }
     name = new char[strlen(name_) + 1];
     strcpy(name, name_);
 }
@@ -161,13 +166,69 @@ void Jedi::setPlanet(const Planet &obj) {
 }
 
 void Jedi::setSpicies(char *spicies_) {
-    delete[] spicies;
+    if (spicies != nullptr) {
+        delete[] spicies;
+    }
+    
     spicies = new char[strlen(spicies_) + 1];
     strcpy(spicies, spicies_);
 }
 
 void Jedi::setMilitaryRank(char* militaryRank_) {
-    delete[] militaryRank;
+    if (militaryRank != nullptr) {
+        delete[] militaryRank;
+    }
+    
     militaryRank = new char[strlen(militaryRank_) + 1];
     strcpy(militaryRank, militaryRank_);
+}
+
+std::istream& operator>>(std::istream &in, Jedi &obj) {
+    
+    const int maxLen = 20;
+    char buff[maxLen];
+
+    in.getline(buff, maxLen, '\n');
+    /* obj.name = new char[strlen(buff) + 1];
+    strcpy(obj.name, buff); */
+    obj.setName(buff);
+
+    in.getline(buff, maxLen, '\n');
+    obj.rank = jediRankToEnum(buff);
+
+    std::cout << "midichlorian: ";
+    double midi;
+    in >> midi;
+
+    obj.midiChlorian = midi;
+
+    in.clear();
+    in.ignore(10000,'\n');
+    
+    in.getline(buff, maxLen, '\n');
+    obj.planet.setName(buff);
+
+    in.getline(buff, maxLen, '\n');
+    obj.setSpicies(buff);
+
+    in.getline(buff, maxLen, '\n');
+    obj.setMilitaryRank(buff);
+
+    return in;
+}
+
+JediRank jediRankToEnum(char *str) {
+    toLower(str);
+
+    if (!strcmp(str, "youngling")) return JediRank::Youngling;
+
+    if (!strcmp(str, "padawan")) return JediRank::Padawan;
+
+    if (!strcmp(str, "knight")) return JediRank::Knight;
+
+    if (!strcmp(str, "master")) return JediRank::Master;
+
+    if (!strcmp(str, "grand master")) return JediRank::GrandMaster;
+
+    return JediRank::Unknown;
 }

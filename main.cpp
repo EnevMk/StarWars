@@ -8,12 +8,10 @@ int main() {
     
     std::cout << "C++ gives me nightmares.\n";
 
-    Stormtrooper st;
-    std::cout << (st.getPlanet().getName() == nullptr);
-    
-    std::cin >> st;
+    Planet earth;
+    std::cin >> earth;
 
-    std::cout << "\n\ntry the print foo\n\n";
-    print(st);
+    std::cout << "\ntesting print foo\n";
+    print(earth);
     return 0;
 }
