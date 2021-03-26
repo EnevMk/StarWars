@@ -45,3 +45,18 @@ public:
     friend std::ostream& operator<<(std::ostream &out, const Jedi &obj);
     friend std::istream& operator>>(std::istream &in, Jedi &obj);
 };
+inline JediRank jediRankToEnum(char *str) {
+    toLower(str);
+
+    if (!strcmp(str, "youngling")) return JediRank::Youngling;
+
+    if (!strcmp(str, "padawan")) return JediRank::Padawan;
+
+    if (!strcmp(str, "knight")) return JediRank::Knight;
+
+    if (!strcmp(str, "master")) return JediRank::Master;
+
+    if (!strcmp(str, "grand master")) return JediRank::GrandMaster;
+
+    return JediRank::Unknown;
+}

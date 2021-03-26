@@ -65,6 +65,8 @@ void BattleShip<T>::setSize(const double size_) {
     size = size_;
 }
 
+
+
 template <typename T>
 void BattleShip<T>::setPilot(const T &obj) {
     pilot = obj;

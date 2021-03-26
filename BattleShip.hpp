@@ -1,7 +1,24 @@
 #pragma once
+#include <cstring>
 #include "Planet.hpp"
 #include "Stormtrooper.hpp"
 #include "Jedi.hpp"
+
+enum class TypeIdentifier {
+    Jedi,
+    Stormtrooper,
+    Invalid
+};
+
+inline TypeIdentifier eval(char* buff) {
+    toLower(buff);
+
+    if (!strcmp(buff, "jedi")) return TypeIdentifier::Jedi;
+
+    if (!strcmp(buff, "stormtrooper")) return TypeIdentifier::Stormtrooper;
+
+    return TypeIdentifier::Invalid;
+}
 
 template <typename T>
 class BattleShip {
@@ -36,16 +53,56 @@ public:
         << "\nWeapons count: " << obj.getWeaponsCount()
         << "\nHyperspace Jumps " << std::boolalpha << obj.getHyperJump()
         << "\nShip size: " << obj.getSize();
-        //<< "Pilot: " << obj.getPilot() << '\n';
-
+        
         print(obj.getPilot());
 
         return os;
     }
     //friend std::ostream& operator<<(std::ostream &os, const BattleShip<Stormtrooper> &obj);
     //friend std::ostream& operator<<(std::ostream &os, const BattleShip<Jedi> &obj);
+    friend std::istream& operator>>(std::istream &is, BattleShip<T> &obj) {
+        double vel;
+        is >> vel;
+        obj.setVelocity(vel);
+
+        unsigned weaponsCount_;
+        is >> weaponsCount_;
+        obj.setWeaponsCount(weaponsCount_);
+
+        bool hyperJump;
+        is >> hyperJump;
+        obj.setJumpAbility(hyperJump);
+
+        double size_;
+        is >> size_;
+        obj.setSize(size_);
+
+        is.clear();
+        is.ignore(10000, '\n');
+
+        char buff[15];
+        is.getline(buff, 15, '\n');
+
+        if (eval(buff) == TypeIdentifier::Jedi) {
+            Jedi temp;
+            is >> temp;
+
+            obj.setPilot(temp);
+
+        }
+        else if (eval(buff) == TypeIdentifier::Stormtrooper) {
+            Stormtrooper temp;
+            is >> temp;
+
+            obj.setPilot(temp);
+        }
+
+        return is;
+    }
     
 };
 //explicit instantiation
 template class BattleShip<Stormtrooper>;
 template class BattleShip<Jedi>;
+
+

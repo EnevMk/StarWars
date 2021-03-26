@@ -15,10 +15,10 @@ int main() {
     st.setType("desert");
     //std::cin >> st;
 
-    BattleShip<Stormtrooper> b(13, 5, 1, 100, st);
+    BattleShip<Jedi> b;
+    std::cin >> b;
+    
     print(b);
 
-    /* std::cout << "\ntesting print foo\n";
-    print(st); */
     return 0;
 }
