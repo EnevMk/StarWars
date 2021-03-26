@@ -83,7 +83,7 @@ const Planet& Stormtrooper::getPlanet() const {
     return planet;
 }
 
-void Stormtrooper::setId(char *id_) {
+void Stormtrooper::setId(const char *id_) {
     delete[] id;
     id = new char[strlen(id_) + 1];
     strcpy(id, id_);
@@ -93,7 +93,7 @@ void Stormtrooper::setRank(Rank r) {
     rank = r;
 }
 
-void Stormtrooper::setType(char *type_) {
+void Stormtrooper::setType(const char *type_) {
     delete[] type;
     type = new char[strlen(type_) + 1];
     strcpy(type, type_);

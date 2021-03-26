@@ -29,9 +29,9 @@ public:
     char* getType() const;
     const Planet& getPlanet() const;
     const char* enumToString(Rank r) const;
-    void setId(char *id);
+    void setId(const char *id);
     void setRank(Rank r);
-    void setType(char *type_);
+    void setType(const char *type_);
     void setPlanet(const Planet &obj);
     
     friend std::ostream& operator<<(std::ostream &out, const Stormtrooper &obj);
