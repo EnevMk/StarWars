@@ -80,22 +80,7 @@ public:
         is.clear();
         is.ignore(10000, '\n');
 
-        char buff[15];
-        is.getline(buff, 15, '\n');
-
-        if (eval(buff) == TypeIdentifier::Jedi) {
-            Jedi temp;
-            is >> temp;
-
-            obj.setPilot(temp);
-
-        }
-        else if (eval(buff) == TypeIdentifier::Stormtrooper) {
-            Stormtrooper temp;
-            is >> temp;
-
-            obj.setPilot(temp);
-        }
+        is >> obj.pilot;
 
         return is;
     }

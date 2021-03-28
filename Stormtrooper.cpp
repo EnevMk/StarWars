@@ -105,7 +105,7 @@ void Stormtrooper::setPlanet(const Planet &obj) {
 
 std::ostream& operator<<(std::ostream &out, const Stormtrooper &obj) {
 
-    out << "Id: " << obj.id 
+    out << "\n\nId: " << obj.id 
     << "\nRank: " << obj.enumToString(obj.getRank())
     << "\nType: " << obj.getType();
     

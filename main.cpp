@@ -15,7 +15,7 @@ int main() {
     st.setType("desert");
     //std::cin >> st;
 
-    BattleShip<Jedi> b;
+    BattleShip<Stormtrooper> b;
     std::cin >> b;
     
     print(b);
