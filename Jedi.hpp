@@ -1,4 +1,5 @@
-#pragma once
+#ifndef JEDI_HPP
+#define JEDI_HPP
 #include "Planet.hpp"
 
 enum class JediRank {
@@ -60,3 +61,5 @@ inline JediRank jediRankToEnum(char *str) {
 
     return JediRank::Unknown;
 }
+
+#endif

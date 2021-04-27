@@ -1,4 +1,8 @@
-#pragma once
+#ifndef PLANET_HPP
+#define PLANET_HPP
+#include <iostream>
+#include <cstring>
+#include "String.hpp"
 
 enum class PlanetType {
     Chthonian,
@@ -61,6 +65,4 @@ inline void toLower(char* str) {
     }
 }
 
-
-
-
+#endif

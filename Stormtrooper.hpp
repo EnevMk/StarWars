@@ -1,4 +1,5 @@
-#pragma once
+#ifndef STORMTROOPER_HPP
+#define STORMTROOPER_HPP
 #include "Planet.hpp"
 
 enum class Rank {
@@ -37,3 +38,5 @@ public:
     friend std::ostream& operator<<(std::ostream &out, const Stormtrooper &obj);
     friend std::istream& operator>>(std::istream &in, Stormtrooper &obj);
 };
+
+#endif
