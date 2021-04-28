@@ -1,9 +1,17 @@
 #ifndef BATTLESHIP_HPP
 #define BATTLESHIP_HPP
-#include <cstring>
+//#include <cstring>
 #include "Planet.hpp"
 #include "Stormtrooper.hpp"
 #include "Jedi.hpp"
+#include "Vector.hpp"
+
+
+/* template <typename T>
+class BattleShip;
+
+template <typename T>
+std::ostream& operator<<(std::ostream&, const BattleShip<T> &obj); */
 
 enum class TypeIdentifier {
     Jedi,
@@ -18,24 +26,22 @@ enum class Ammunition {
     Invalid
 };
 
-/* String enumToString(Ammunition ammo_) {
+Ammunition stringToEnum(String str) {
+    str.toLower();
+    if (str == "light") return Ammunition::Light;
+    if (str == "medium") return Ammunition::Medium;
+    if (str == "heavy") return Ammunition::Heavy;
+    return Ammunition::Invalid;
+}
+
+String enumToString(Ammunition ammo_) {
     switch (ammo_)
     {
-    case Ammunition::Light : return "Light";
-    case Ammunition::Medium : return "Medium";
-    case Ammunition::Heavy : return "Heavy";
-    default: return "Invalid";
+        case Ammunition::Light : return "Light";
+        case Ammunition::Medium : return "Medium";
+        case Ammunition::Heavy : return "Heavy";
+        default: return "Invalid";
     }
-} */
-
-inline TypeIdentifier eval(char* buff) {
-    toLower(buff);
-
-    if (!strcmp(buff, "jedi")) return TypeIdentifier::Jedi;
-
-    if (!strcmp(buff, "stormtrooper")) return TypeIdentifier::Stormtrooper;
-
-    return TypeIdentifier::Invalid;
 }
 
 template <typename T>
@@ -52,11 +58,7 @@ private:
     Ammunition level;
     size_t armory;
     
-    //Ammunition stringToEnum(const String str);
-
 public:
-    /* template <typename T>
-    typedef void (BattleShip<T>::*fptr)(String); */
 
     BattleShip();
     BattleShip(const double vel_, const unsigned weapons_, const bool jump, const double size_, 
@@ -69,7 +71,7 @@ public:
     double getSize() const;
     const T& getPilot() const;
     double getFuel() const;
-    String getAmmoLevel() const;
+    Ammunition getAmmoLevel() const;
     size_t getArmoryLevel() const;
     void setVelocity(const double vel_);
     void setWeaponsCount(const unsigned cnt_);
@@ -79,15 +81,18 @@ public:
     void setFuel(const double fuel_);
     void setAmmoLevel(const String ammo_);
     void setArmoryLevel(const size_t armory_);
+    //String getAmmoLevelString();
 
-    friend std::ostream& operator<<(std::ostream &os, const BattleShip<T> &obj) {
+    //friend std::ostream& operator<< (std::ostream &os, const BattleShip &obj);
+    
+    friend std::ostream& operator<< (std::ostream &os, const BattleShip<T> &obj) {
 
         os << "\nBattleship velocity: " << obj.getVelocity()
         << "\nWeapons count: " << obj.getWeaponsCount()
         << "\nHyperspace Jumps: " << std::boolalpha << obj.getHyperJump()
         << "\nShip size: " << obj.getSize()
         << "\nFuel amount: " << obj.getFuel()
-        //<< "\n Ammunition level: " << enumToString(obj.level)
+        << "\n Ammunition level: " << enumToString(obj.getAmmoLevel())
         << "\n Armory level: " << obj.armory;
 
         print(obj.getPilot());
@@ -126,4 +131,147 @@ public:
 template class BattleShip<Stormtrooper>;
 template class BattleShip<Jedi>;
 
+/* template<typename T>
+std::ostream& operator<<(std::ostream &os, const BattleShip<T> &obj) {
+
+    os << "\nBattleship velocity: " << obj.getVelocity()
+    << "\nWeapons count: " << obj.getWeaponsCount()
+    << "\nHyperspace Jumps: " << std::boolalpha << obj.getHyperJump()
+    << "\nShip size: " << obj.getSize()
+    << "\nFuel amount: " << obj.getFuel()
+    //<< "\n Ammunition level: " << enumAmmoToString(obj.level)
+    << "\n Armory level: " << obj.armory;
+
+    print(obj.getPilot());
+
+    return os;
+} */
+//template std::ostream& operator<<(std::ostream &os, const BattleShip<Stormtrooper> &obj);
+
+
+/* inline Ammunition stringToEnum(String str) {
+    str.toLower();
+    if (str == "light") return Ammunition::Light;
+    if (str == "medium") return Ammunition::Medium;
+    if (str == "heavy") return Ammunition::Heavy;
+    return Ammunition::Invalid;
+} */
+
+template <typename T>
+BattleShip<T>::BattleShip():pilot() {
+    velocity = 0;
+    weaponsCount = 0;
+    hyperSpaceJump = false;
+    fuel = 0;
+    level = Ammunition::Invalid;
+    armory = 0;
+}
+template <typename T>
+BattleShip<T>::BattleShip(const double vel_, const unsigned weapons_, const bool jump, const double size_, 
+                          const T& pilot_, const double fuel_, const String ammo_, const size_t armory_) {
+    velocity = vel_;
+    weaponsCount = weapons_;
+    hyperSpaceJump = jump;
+    size = size_;
+    pilot = pilot_;
+    fuel = fuel_;
+    level = stringToEnum(ammo_);
+    armory = (armory_ >= 100) ? 100 : armory_;
+}
+
+template <typename T>
+double BattleShip<T>::getVelocity() const {
+    return velocity;
+}
+
+template <typename T>
+unsigned BattleShip<T>::getWeaponsCount() const {
+    return weaponsCount;
+}
+
+template <typename T>
+bool BattleShip<T>::getHyperJump() const {
+    return hyperSpaceJump;
+}
+
+template <typename T>
+double BattleShip<T>::getSize() const {
+    return size;
+}
+
+template <typename T>
+const T& BattleShip<T>::getPilot() const {
+    return pilot;
+}
+
+template <typename T>
+double BattleShip<T>::getFuel() const {
+    return fuel;
+}
+
+template <typename T>
+Ammunition BattleShip<T>::getAmmoLevel() const {
+    return this->level;
+}
+
+template <typename T>
+size_t BattleShip<T>::getArmoryLevel() const {
+    return armory;
+}
+
+template <typename T>
+void BattleShip<T>::setVelocity(const double vel_) {
+    velocity = vel_;
+}
+
+template <typename T>
+void BattleShip<T>::setWeaponsCount(const unsigned cnt_) {
+    weaponsCount = cnt_;
+}
+
+template <typename T>
+void BattleShip<T>::setJumpAbility(const bool b) {
+    hyperSpaceJump = b;
+}
+
+template <typename T>
+void BattleShip<T>::setSize(const double size_) {
+    size = size_;
+}
+
+template <typename T>
+void BattleShip<T>::setPilot(const T &obj) {
+    pilot = obj;
+}
+
+template <typename T>
+void BattleShip<T>::setFuel(const double fuel_) {
+    fuel = (fuel_ > 300) ? 300 : fuel_;
+    fuel = (fuel < 0) ? 0 : fuel;
+}
+
+template <typename T>
+void BattleShip<T>::setAmmoLevel(const String ammo_) {
+    Ammunition newAmmo = stringToEnum(ammo_);
+    
+    if (this->level == Ammunition::Invalid) {
+        level = newAmmo;
+        return;
+    }
+    
+    level = newAmmo;
+    size_t velocityChangeCoef = 0.15 * ((int)newAmmo - (int)level) * velocity;
+    velocity -= velocityChangeCoef;
+}
+
+/* template <typename T>
+String BattleShip<T>::getAmmoLevelString() {
+    switch (this->level)
+    {
+    case Ammunition::Light : return "Light";
+    case Ammunition::Medium : return "Medium";
+    case Ammunition::Heavy : return "Heavy";
+    default: return "Invalid";
+    }
+} */
 #endif
