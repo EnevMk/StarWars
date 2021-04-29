@@ -259,9 +259,10 @@ void BattleShip<T>::setAmmoLevel(const String ammo_) {
         return;
     }
     
-    level = newAmmo;
-    size_t velocityChangeCoef = 0.15 * ((int)newAmmo - (int)level) * velocity;
+    double velocityChangeCoef = 0.15 * ((int)newAmmo - (int)level) * velocity;
     velocity -= velocityChangeCoef;
+
+    level = newAmmo;
 }
 
 /* template <typename T>

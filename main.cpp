@@ -34,6 +34,8 @@ int main() {
     korabi.push(j1);
     korabi.push(j2);
 
+    std::cout << "\n\n" << enumToString(korabi[2].getAmmoLevel());
+
     String h = "Heavy";
     map(korabi, &BattleShip<Stormtrooper>::setAmmoLevel, h);
 
