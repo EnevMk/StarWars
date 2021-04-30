@@ -15,6 +15,25 @@ void map(Vector<T> &obj, void (BattleShip<V>::*ptr)(W), W w) {
     }
 }
 
+template <typename T>
+void removeWeakShips(Vector<BattleShip<T>> &obj) {
+    size_t cnt = obj.size();
+    size_t armoryAverage = 0;
+
+    for (size_t i = 0; i < cnt; ++i) { 
+        armoryAverage += obj[i].getArmoryLevel();
+    }
+    armoryAverage /= cnt;
+
+    for (size_t i = 0; i < cnt; ++i) {
+
+        if (obj[i].getArmoryLevel() < armoryAverage) {
+            obj.removeAtIndex(i);
+            i--;
+            cnt--;
+        }
+    }
+}
 int main() {
     
     std::cout << "C++ gives me nightmares.\n";
@@ -31,22 +50,22 @@ int main() {
     BattleShip<Stormtrooper> j1(15000, 3, 1, 35, st, 60, "Medium", 55);
     BattleShip<Stormtrooper> j2(17000, 2, 1, 20, st, 60, "Light", 40);
     korabi.push(j);
-    korabi.push(j1);
     korabi.push(j2);
+    korabi.push(j1);
 
-    std::cout << "\n\n" << enumToString(korabi[2].getAmmoLevel());
+    //std::cout << "\n\n" << enumToString(korabi[2].getAmmoLevel());
 
     String h = "Heavy";
     map(korabi, &BattleShip<Stormtrooper>::setAmmoLevel, h);
 
-    for (int i = 0; i < 3; ++i) {
+    std::cout << korabi.size();
+    removeWeakShips(korabi);
+
+    std::cout << korabi.size() << '\n';
+
+    for (int i = 0; i < korabi.size(); ++i) {
         std::cout << korabi[i];
     }
 
-    std::cout << '\n' << korabi[2].getVelocity();
-
-    std::cout << '\n' << enumToString(korabi[2].getAmmoLevel());
-
-    std::cout << '\n' << korabi[2].getFuel();
     return 0;
 }

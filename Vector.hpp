@@ -96,8 +96,9 @@ void Vector<T>::popBack() {
 
 template <typename T>
 void Vector<T>::removeAtIndex(const int index) {
-    if (index < size()) {
-        for (int i = index; i < size() - 1; ++i) {
+    const int size_ = size();
+    if (index < size_ && index >= 0) {
+        for (int i = index; i < size_ - 1; ++i) {
             arr[i] = arr[i + 1];
         }
         current--;

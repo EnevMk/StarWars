@@ -265,6 +265,12 @@ void BattleShip<T>::setAmmoLevel(const String ammo_) {
     level = newAmmo;
 }
 
+template <typename T>
+void BattleShip<T>::setArmoryLevel(const size_t armory_) {
+    if (armory_ < 0 || armory_ > 100) return;
+
+    armory = armory_;
+}
 /* template <typename T>
 String BattleShip<T>::getAmmoLevelString() {
     switch (this->level)
