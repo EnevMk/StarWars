@@ -96,7 +96,8 @@ public:
         << "\n Armory level: " << obj.armory;
 
         print(obj.getPilot());
-
+        std::cout << "\n\n";
+        
         return os;
     }
     //friend std::ostream& operator<<(std::ostream &os, const BattleShip<Stormtrooper> &obj);

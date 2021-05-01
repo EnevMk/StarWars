@@ -1,4 +1,5 @@
 #include <iostream>
+#include <typeinfo>
 //#include <cstring>
 #include "Planet.hpp"
 #include "Stormtrooper.hpp"
@@ -6,17 +7,10 @@
 #include "BattleShip.hpp"
 #include "String.hpp"
 #include "Vector.hpp"
-
-
-template <typename T, typename V, typename W>
-void map(Vector<T> &obj, void (BattleShip<V>::*ptr)(W), W w) {
-    for (size_t i = 0; i < obj.size(); ++i) {
-        (obj[i].*ptr) (w);
-    }
-}
+#include "LList.hpp"
 
 template <typename T>
-void removeWeakShips(Vector<BattleShip<T>> &obj) {
+void removeWeakShips(Vector<BattleShip<T>> &obj, LList<String> &activityLog_) {
     size_t cnt = obj.size();
     size_t armoryAverage = 0;
 
@@ -33,11 +27,38 @@ void removeWeakShips(Vector<BattleShip<T>> &obj) {
             cnt--;
         }
     }
+
+    activityLog_.pushBack("removed weak ships");
 }
+
+template <typename V, typename W>
+void map(Vector<BattleShip<V>> &obj, void (BattleShip<V>::*ptr)(W), W funcArg, LList<String> &activityLog_) {
+
+    String test = "HH";
+    double num = 2.5;
+
+    for (size_t i = 0; i < obj.size(); ++i) {
+        (obj[i].*ptr) (funcArg);
+    }
+
+    if (/* ptr == &BattleShip<Stormtrooper>::setAmmoLevel */ typeid(W).name() == typeid(test).name()) {
+
+        activityLog_.pushBack("Changed ammunition level");
+        //std::cout << "Cool\n";
+    } 
+    else if (/* ptr == &BattleShip<Stormtrooper>::setFuel */ typeid(W).name() == typeid(num).name()) {
+        activityLog_.pushBack("Fuel recharged");
+    }
+    
+}
+
 int main() {
     
-    std::cout << "C++ gives me nightmares.\n";
+    std::cout << "\nC++ gives me nightmares.\n";
 
+    LList<String> activityLog;
+    activityLog.push("ACTIVITY LOG TEST");
+    
     Stormtrooper st;
     st.setId("ST109");
     st.setRank(Rank::SERGEANT);
@@ -56,16 +77,21 @@ int main() {
     //std::cout << "\n\n" << enumToString(korabi[2].getAmmoLevel());
 
     String h = "Heavy";
-    map(korabi, &BattleShip<Stormtrooper>::setAmmoLevel, h);
+    String h2 = "Light";
+    map(korabi, &BattleShip<Stormtrooper>::setFuel, 165.0, activityLog);
 
     std::cout << korabi.size();
-    removeWeakShips(korabi);
+    removeWeakShips(korabi, activityLog);
 
-    std::cout << korabi.size() << '\n';
+    //std::cout << korabi.size() << '\n';
 
-    for (int i = 0; i < korabi.size(); ++i) {
+    /* for (int i = 0; i < korabi.size(); ++i) {
         std::cout << korabi[i];
-    }
+    } */
 
+    activityLog.print();
+
+    //std::cout << (typeid(h).name() == String);
+    
     return 0;
 }
